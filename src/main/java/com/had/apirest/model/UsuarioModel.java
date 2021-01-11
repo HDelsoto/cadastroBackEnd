@@ -6,13 +6,13 @@ import javax.persistence.Id;
 
 @Entity(name="usuario")
 public class UsuarioModel {
-    @Id
+    @Column()
     public Integer id;
     @Column(length = 50)
     public String email;
     @Column(length = 50)
     public String nome;
-    @Column(length = 50)
+    @Id
     public String cpf;
     @Column(length = 50)
     public String telefone;
