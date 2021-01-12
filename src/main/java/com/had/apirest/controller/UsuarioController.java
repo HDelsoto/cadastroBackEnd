@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class UsuarioController {
@@ -40,18 +41,43 @@ public class UsuarioController {
 
     }
 
-    @GetMapping(path = "/usuarios/nome={nome}")
+    @GetMapping(path = "/usuarios/nomex={nome}")
     public List<UsuarioModel> listaByFilter(@PathVariable(value = "nome") String nome) {
         if (nome.length()!=0)
         {
             StringBuilder stringBuilder = new StringBuilder(nome);
-             stringBuilder.insert(nome.length() - 1, '%');
+            stringBuilder.insert(nome.length() - 1, '%');
             stringBuilder.insert(nome.length() + 1, '%');
-             System.out.println(stringBuilder.toString());
+            System.out.println(stringBuilder.toString());
             return repository.findByNomeLike(stringBuilder.toString());
         }
         return repository.findByNomeLike("%");
 
+    }
+    @RequestMapping(path = "/usuarios/{nome}/{situacao}/{perfil}", method = RequestMethod.GET)
+    public List<UsuarioModel> listaByFilter2(@PathVariable(value = "nome") String nome,
+                                             @PathVariable(value = "situacao") String situacao,
+                                             @PathVariable(value = "perfil") String perfil) {
+        StringBuilder stringBuilder1 = new StringBuilder("%");
+        StringBuilder stringBuilder2 = new StringBuilder("%");
+        StringBuilder stringBuilder3 = new StringBuilder("%");
+        if (nome.length()!=0)
+        {
+            stringBuilder1.insert(0, "%");
+            stringBuilder1.insert(1, nome);
+                          
+        }
+        if (situacao.length()!=0)
+        {
+            stringBuilder2.insert(0, '%');
+            stringBuilder2.insert(1, situacao);                                
+        }
+        if (perfil.length()!=0)
+        {
+            stringBuilder3.insert(0, '%');
+            stringBuilder3.insert(1, perfil);                      
+        }        
+        return repository.findByFilter(stringBuilder1.toString(),stringBuilder2.toString(),stringBuilder3.toString());             
     }
     
 
