@@ -40,6 +40,21 @@ public class UsuarioController {
 
     }
 
+    @GetMapping(path = "/usuarios/nome={nome}")
+    public List<UsuarioModel> listaByFilter(@PathVariable(value = "nome") String nome) {
+        if (nome.length()!=0)
+        {
+            StringBuilder stringBuilder = new StringBuilder(nome);
+             stringBuilder.insert(nome.length() - 1, '%');
+            stringBuilder.insert(nome.length() + 1, '%');
+             System.out.println(stringBuilder.toString());
+            return repository.findByNomeLike(stringBuilder.toString());
+        }
+        return repository.findByNomeLike("%");
+
+    }
+    
+
     
     @GetMapping(path = "/usuarios")
     public List<UsuarioModel> consultarTodos() {
