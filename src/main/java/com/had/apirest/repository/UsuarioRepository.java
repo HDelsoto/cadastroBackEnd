@@ -16,6 +16,5 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> 
     List<UsuarioModel> findByPerfilLike(String perfil);
     List<UsuarioModel> findBySituacaoLike(String situacao);
     @Query("select u from usuario u where u.nome like :nome and u.situacao like :situacao and u.perfil like :perfil")
-    //@Query(value = "SELECT * FROM usuario where (nome like nome ) and (situacao like situacao ) and (perfil like perfil)", nativeQuery = true)
     List<UsuarioModel> findByFilter(@Param("nome") String nome, @Param("situacao") String situacao, @Param("perfil") String perfil);
 }

@@ -48,7 +48,6 @@ public class UsuarioController {
             StringBuilder stringBuilder = new StringBuilder(nome);
             stringBuilder.insert(nome.length() - 1, '%');
             stringBuilder.insert(nome.length() + 1, '%');
-            System.out.println(stringBuilder.toString());
             return repository.findByNomeLike(stringBuilder.toString());
         }
         return repository.findByNomeLike("%");
@@ -61,22 +60,21 @@ public class UsuarioController {
         StringBuilder stringBuilder1 = new StringBuilder("%");
         StringBuilder stringBuilder2 = new StringBuilder("%");
         StringBuilder stringBuilder3 = new StringBuilder("%");
-        if (nome.length()!=0)
+        if (nome.length()!=0 && !nome.equals("xyzabc"))
         {
             stringBuilder1.insert(0, "%");
-            stringBuilder1.insert(1, nome);
-                          
+            stringBuilder1.insert(1, nome);                                    
         }
-        if (situacao.length()!=0)
+        if (situacao.length()!=0 && !situacao.equals("xyzabc"))
         {
             stringBuilder2.insert(0, '%');
             stringBuilder2.insert(1, situacao);                                
         }
-        if (perfil.length()!=0)
+        if (perfil.length()!=0 && !perfil.equals("xyzabc"))
         {
             stringBuilder3.insert(0, '%');
             stringBuilder3.insert(1, perfil);                      
-        }        
+        }    
         return repository.findByFilter(stringBuilder1.toString(),stringBuilder2.toString(),stringBuilder3.toString());             
     }
     
