@@ -2,17 +2,21 @@ package com.had.apirest.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name="usuario")
 public class UsuarioModel {
-    @Column()
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public Integer id;
     @Column(length = 50)
     public String email;
     @Column(length = 50)
     public String nome;
-    @Id
+    @Column(length = 50)
     public String cpf;
     @Column(length = 50)
     public String telefone;
@@ -86,6 +90,10 @@ public class UsuarioModel {
     public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
+
+    
+
+    
 
     
     
